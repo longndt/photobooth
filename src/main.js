@@ -1,4 +1,3 @@
-import QRCode from 'qrcode';
 import mascotUrl from './assets/mascot.png';
 import './styles.css';
 import { POSTER_THEMES } from './concepts.js';
@@ -405,31 +404,26 @@ q('#app').innerHTML = `
 <div class="result-ov hidden" id="rov">
   <div class="result-card">
     <img class="poster-img" id="poster-img" alt="Poster được ghép lại"/>
-    <div class="dl-row">
-      <div class="qr-wrap">
-        <img id="qr-img" alt="Mã QR để quét và tải ảnh"/>
-      </div>
-      <div class="dl-info">
-        <a id="dl-link" class="btn-primary" download="photobooth.jpg" aria-label="Tải ảnh về máy">
-          <span class="btn-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
-              <path d="M12 3.5v9.2l3.2-3.2 1.8 1.8-6 6-6-6 1.8-1.8 3.2 3.2V3.5h2z"></path>
-              <path d="M5 19.5h14v2H5z"></path>
-            </svg>
-          </span>
-          <span>Tải ảnh</span>
-        </a>
-        <button id="print-btn" class="btn-primary" type="button" aria-label="In poster ra máy in">
-          <span class="btn-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
-              <path d="M7 7V3.5h10V7H7z"></path>
-              <path d="M7 17.5h10V21H7z"></path>
-              <path d="M6 9h12a3 3 0 0 1 3 3v4h-3v-3H6v3H3v-4a3 3 0 0 1 3-3zm1.5 2.2h9v1.8h-9z"></path>
-            </svg>
-          </span>
-          <span>In ảnh</span>
-        </button>
-      </div>
+    <div class="dl-info">
+      <a id="dl-link" class="btn-primary" download="photobooth.jpg" aria-label="Tải ảnh về máy">
+        <span class="btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+            <path d="M12 3.5v9.2l3.2-3.2 1.8 1.8-6 6-6-6 1.8-1.8 3.2 3.2V3.5h2z"></path>
+            <path d="M5 19.5h14v2H5z"></path>
+          </svg>
+        </span>
+        <span>Tải ảnh</span>
+      </a>
+      <button id="print-btn" class="btn-primary" type="button" aria-label="In poster ra máy in">
+        <span class="btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+            <path d="M7 7V3.5h10V7H7z"></path>
+            <path d="M7 17.5h10V21H7z"></path>
+            <path d="M6 9h12a3 3 0 0 1 3 3v4h-3v-3H6v3H3v-4a3 3 0 0 1 3-3zm1.5 2.2h9v1.8h-9z"></path>
+          </svg>
+        </span>
+        <span>In ảnh</span>
+      </button>
     </div>
     <button id="retake-btn" class="btn-sec btn-full" aria-label="Chụp lại bộ ảnh mới">↩ Chụp lại</button>
   </div>
@@ -561,19 +555,6 @@ async function shoot() {
   if (S.posterObjectUrl) URL.revokeObjectURL(S.posterObjectUrl);
   S.posterObjectUrl = URL.createObjectURL(uploadBlob);
   S.posterUrl = S.posterObjectUrl;
-  try {
-    const dlUrl = await uploadPoster(uploadBlob);
-    if (!dlUrl) throw new Error('Upload failed');
-    const downloadUrl = `${window.location.origin}/api/download?url=${encodeURIComponent(dlUrl)}`;
-    q('#qr-img').src = await QRCode.toDataURL(downloadUrl, { margin: 1, width: 240, color: { dark: '#005F73', light: '#fff' } });
-  } catch (err) {
-    console.error('QR preparation failed:', err);
-    q('#cov').classList.remove('is-processing');
-    q('#cov').classList.add('hidden');
-    alert('Không thể tạo mã QR, hãy thử lại.');
-    retake();
-    return;
-  }
   await fadeOutProcessing();
   showResult();
   syncThemePicker();
@@ -615,7 +596,6 @@ function clearPhotoObjectUrls() {
 function showResult() {
   q('#poster-img').src = S.posterUrl;
   q('#dl-link').href   = S.posterUrl;
-  q('.qr-wrap').classList.toggle('qr-loading', !q('#qr-img').src);
   q('#rov').classList.remove('hidden');
   q('#rov').classList.remove('is-ready');
   requestAnimationFrame(() => q('#rov').classList.add('is-ready'));
@@ -649,7 +629,6 @@ function retake() {
   S.mode = 'ready'; S.photos = []; S.posterUrl = null;
   S.posterObjectUrl = null;
   q('#rov').classList.add('hidden');
-  q('#qr-img').src = '';
   q('#cov').classList.remove('is-processing');
   q('#shoot-btn').disabled = false;
   qa('.pv-slot').forEach(s => s.classList.remove('filled'));

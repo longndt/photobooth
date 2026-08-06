@@ -317,19 +317,13 @@ async function main() {
   });
   const resultState = await page.evaluate(() => {
     window.__t.S.posterUrl = document.querySelector('#cvs').toDataURL('image/jpeg', 0.97);
-    document.querySelector('#qr-img').src = window.__t.S.posterUrl;
     window.__t.showResult();
     return {
       hidden: document.querySelector('#rov').classList.contains('hidden'),
-      loading: document.querySelector('.qr-wrap').classList.contains('qr-loading'),
-      qrSrc: document.querySelector('#qr-img').src,
     };
   });
   if (resultState.hidden) {
     throw new Error('Result screen did not open');
-  }
-  if (resultState.loading || !resultState.qrSrc) {
-    throw new Error(`Result should wait for QR before opening: ${JSON.stringify(resultState)}`);
   }
 
   if (consoleErrors.length || pageErrors.length) {
