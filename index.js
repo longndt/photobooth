@@ -57,6 +57,9 @@ async function respondFromNode(request) {
   ]);
   const distDir = path.resolve(process.cwd(), 'dist');
   const url = new URL(request.url);
+  if (url.pathname.startsWith('/api/')) {
+    return new Response('Not found', { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8' } });
+  }
   const pathname = assetPathFor(url.pathname);
   const safePath = path.resolve(distDir, `.${pathname}`);
   if (!safePath.startsWith(distDir)) {
