@@ -67,14 +67,17 @@ export async function buildPoster({
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext('2d');
+  const scale = width / 1080;
+  const sx = value => value * scale;
+  const sy = value => value * scale;
 
   ctx.fillStyle = theme.bg.color;
   ctx.fillRect(0, 0, width, height);
 
-  drawGlowOrb(ctx, 160, 140, 260, theme.frame.outer, 0.18);
-  drawGlowOrb(ctx, 920, 220, 280, theme.photos.cornerAccent.color, 0.12);
-  drawGlowOrb(ctx, 760, 1180, 320, theme.footer.glow || theme.footer.borderColor, 0.12);
-  drawGlowOrb(ctx, 540, 760, 420, 'rgba(255,255,255,0.18)', 0.08);
+  drawGlowOrb(ctx, sx(160), sy(140), sx(260), theme.frame.outer, 0.18);
+  drawGlowOrb(ctx, sx(920), sy(220), sx(280), theme.photos.cornerAccent.color, 0.12);
+  drawGlowOrb(ctx, sx(760), sy(1180), sx(320), theme.footer.glow || theme.footer.borderColor, 0.12);
+  drawGlowOrb(ctx, sx(540), sy(760), sx(420), 'rgba(255,255,255,0.18)', 0.08);
 
   if (theme.bg.texture.type === 'grid') {
     ctx.fillStyle = theme.bg.texture.color;
@@ -89,60 +92,51 @@ export async function buildPoster({
   layout.forEach(({ x, y, w, h, hero }) => {
     ctx.save();
     ctx.shadowColor = theme.photos.slotShadow;
-    ctx.shadowBlur = hero ? 34 : 22;
+    ctx.shadowBlur = hero ? sx(34) : sx(22);
     ctx.shadowOffsetY = 0;
     ctx.fillStyle = theme.photos.slotBg;
-    roundRect(ctx, x - 8, y - 8, w + 16, h + 16, theme.photos.radius + 2);
+    roundRect(ctx, sx(x - 8), sy(y - 8), sx(w + 16), sy(h + 16), sx(theme.photos.radius + 2));
     ctx.fill();
     ctx.restore();
   });
 
   layout.forEach(({ x, y, w, h }) => {
     ctx.fillStyle = theme.photos.slotBg;
-    roundRect(ctx, x, y, w, h, theme.photos.radius);
+    roundRect(ctx, sx(x), sy(y), sx(w), sy(h), sx(theme.photos.radius));
     ctx.fill();
   });
 
   await Promise.all(photos.map((p, i) => {
     const slot = layout[i];
-    return drawPhoto(ctx, p, slot.x + 8, slot.y + 8, slot.w - 16, slot.h - 16, theme.photos.radius - 4);
+    return drawPhoto(ctx, p, sx(slot.x + 8), sy(slot.y + 8), sx(slot.w - 16), sy(slot.h - 16), sx(theme.photos.radius - 4));
   }));
 
   layout.forEach(({ x, y, w, h, hero }, i) => {
     ctx.save();
-    roundRect(ctx, x + 8, y + 8, w - 16, h - 16, theme.photos.radius - 4);
+    roundRect(ctx, sx(x + 8), sy(y + 8), sx(w - 16), sy(h - 16), sx(theme.photos.radius - 4));
     ctx.clip();
     const accent = i === 0 ? theme.frame.outer : theme.photos.cornerAccent.color;
-    drawGlowOrb(ctx, x + w * 0.18, y + h * 0.18, hero ? 160 : 120, accent, 0.08);
-    drawGlowOrb(ctx, x + w * 0.86, y + h * 0.82, hero ? 130 : 90, theme.footer.borderColor, 0.06);
+    drawGlowOrb(ctx, sx(x + w * 0.18), sy(y + h * 0.18), sx(hero ? 160 : 120), accent, 0.08);
+    drawGlowOrb(ctx, sx(x + w * 0.86), sy(y + h * 0.82), sx(hero ? 130 : 90), theme.footer.borderColor, 0.06);
     ctx.restore();
   });
 
   layout.forEach(({ x, y, w, h }) => {
     ctx.save();
-    roundRect(ctx, x + 8, y + 8, w - 16, h - 16, theme.photos.radius - 4);
+    roundRect(ctx, sx(x + 8), sy(y + 8), sx(w - 16), sy(h - 16), sx(theme.photos.radius - 4));
     ctx.clip();
     ctx.fillStyle = 'rgba(0,31,20,0.09)';
-    ctx.fillRect(x + 8, y + 8, w - 16, h - 16);
+    ctx.fillRect(sx(x + 8), sy(y + 8), sx(w - 16), sy(h - 16));
     ctx.restore();
   });
 
   layout.forEach(({ x, y, w, h, hero }) => {
     ctx.strokeStyle = theme.photos.borderColor;
-    ctx.lineWidth = hero ? theme.photos.borderWidth + 2 : theme.photos.borderWidth;
-    roundRect(ctx, x, y, w, h, theme.photos.radius);
+    ctx.lineWidth = sx(hero ? theme.photos.borderWidth + 2 : theme.photos.borderWidth);
+    roundRect(ctx, sx(x), sy(y), sx(w), sy(h), sx(theme.photos.radius));
     ctx.stroke();
-    drawCornerAccents(ctx, x, y, w, h, theme.photos.cornerAccent.color, theme.photos.cornerAccent.size, theme.photos.cornerAccent.lw);
+    drawCornerAccents(ctx, sx(x), sy(y), sx(w), sy(h), theme.photos.cornerAccent.color, sx(theme.photos.cornerAccent.size), sx(theme.photos.cornerAccent.lw));
   });
-
-  ctx.save();
-  ctx.fillStyle = 'rgba(255,253,246,0.88)';
-  roundRect(ctx, 144, 90, 392, 54, 8);
-  ctx.fill();
-  ctx.restore();
-  drawHeaderText(ctx, theme.text.school, 160, 117, 360, 900, 34, 24, 'Be Vietnam Pro', theme.title.color);
-  drawHeaderText(ctx, theme.text.subtitle, width - 64, 117, 360, 700, 28, 20, 'Be Vietnam Pro', theme.subtitle.color, 'right');
-  drawHeaderText(ctx, theme.text.footer, width / 2, height - 34, width - 96, 800, 28, 18, 'Be Vietnam Pro', theme.footer.hashtag.color, 'center');
 }
 
 function drawPhoto(ctx, url, x, y, w, h, radius = 0) {

@@ -1,5 +1,5 @@
-export const POSTER_WIDTH = 1080;
-export const POSTER_HEIGHT = 1350;
+export const POSTER_WIDTH = 1620;
+export const POSTER_HEIGHT = 2025;
 
 export const POSTER_LAYOUTS = {
   3: [

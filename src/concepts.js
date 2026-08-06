@@ -16,11 +16,6 @@ export const POSTER_THEMES = [
     title: { color: '#0A5B66' },
     subtitle: { color: '#B85C19' },
     event: { color: '#C24E2C' },
-    text: {
-      school: 'PHOTOBOOTH',
-      subtitle: 'Smile & Capture',
-      footer: 'Happy moments',
-    },
     meta: { color: '#375B63' },
     date: { color: '#7A4E1C' },
     photos: {
@@ -55,11 +50,6 @@ export const POSTER_THEMES = [
     title: { color: '#0A5B66' },
     subtitle: { color: '#C7751A' },
     event: { color: '#9E4A2C' },
-    text: {
-      school: 'PHOTOBOOTH',
-      subtitle: 'Smile & Capture',
-      footer: 'Happy moments',
-    },
     meta: { color: '#0A5B66' },
     date: { color: '#4E6A6E' },
     photos: {

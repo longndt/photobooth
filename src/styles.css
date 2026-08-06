@@ -327,8 +327,8 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
-  padding: 18px 18px 12px 0;
+  gap: 12px;
+  padding: 10px 18px 4px 0;
   min-height: 0;
   height: calc(100dvh - 56px);
 }
@@ -347,12 +347,12 @@ html, body {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: 16px;
 }
 
 .ctrl-col-group {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .layout-picker.is-locked {
@@ -379,7 +379,7 @@ html, body {
   background: rgba(4, 18, 26, 0.76);
   color: var(--text);
   border-radius: 14px;
-  padding: 12px 12px 11px;
+  padding: 15px 14px 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -395,7 +395,7 @@ html, body {
 .layout-chip,
 .time-chip {
   width: 100%;
-  min-height: 46px;
+  min-height: 54px;
   justify-content: center;
 }
 
@@ -406,7 +406,7 @@ html, body {
 
 .layout-chip {
   justify-content: center;
-  padding: 9px 10px;
+  padding: 13px 10px;
 }
 
 .theme-chip-dot {
@@ -535,7 +535,7 @@ html, body {
 .poster-shell {
   position: relative;
   width: min(100%, calc((100dvh - 132px) * 952 / 922));
-  flex: 1.15 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
   max-height: 100%;
   aspect-ratio: 952 / 922;
@@ -714,9 +714,9 @@ input[type="range"] {
 
 /* ── Shoot button ────────────────────────────────────────── */
 .shoot-btn {
-  width: clamp(126px, 13.5vw, 180px);
+  width: clamp(150px, 15vw, 206px);
   aspect-ratio: 1;
-  padding: 20px;
+  padding: 24px;
   border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.16);
   background:
@@ -818,7 +818,7 @@ input[type="range"] {
 .s-text {
   position: relative;
   z-index: 1;
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 900;
   line-height: 1;
   text-align: center;
@@ -1465,9 +1465,9 @@ input[type="range"] {
 @media (max-width: 940px) {
   .poster-shell {
     order: 0;
-    height: clamp(190px, 32dvh, 340px);
-    width: min(100%, calc(clamp(190px, 32dvh, 340px) * 952 / 922));
-    max-height: 34vh;
+    height: clamp(220px, 34dvh, 420px);
+    width: min(100%, calc(clamp(220px, 34dvh, 420px) * 952 / 922));
+    max-height: 40vh;
   }
   .shoot-btn { order: 1; }
 }
@@ -1490,26 +1490,26 @@ input[type="range"] {
 
 @media (min-width: 941px) {
   .ctrl-col {
-    gap: 10px;
+    gap: 14px;
     justify-content: flex-start;
     padding-top: 4px;
   }
 
   .poster-shell {
     flex: 0 0 auto;
-    height: clamp(330px, 58dvh, 650px);
-    width: min(100%, calc(clamp(330px, 58dvh, 650px) * 952 / 922));
-    max-height: 650px;
+    height: clamp(360px, 62dvh, 720px);
+    width: min(100%, calc(clamp(360px, 62dvh, 720px) * 952 / 922));
+    max-height: 720px;
   }
 
   .shoot-btn {
     flex-shrink: 0;
-    width: clamp(88px, 8vw, 108px);
-    margin: 8px auto 0;
+    width: clamp(132px, 11vw, 160px);
+    margin: 0 auto 2px;
   }
 
-  .s-text { font-size: 13px; }
-  .s-text span:last-child { font-size: 15px; }
+  .s-text { font-size: 16px; }
+  .s-text span:last-child { font-size: 18px; }
 }
 
 @media (max-width: 768px) {
@@ -1527,19 +1527,19 @@ input[type="range"] {
   }
 
   .ctrl-col {
-    gap: 10px;
-    padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+    gap: 12px;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
   }
 
   .poster-shell {
-    height: clamp(280px, 50dvh, 540px);
-    width: min(100%, calc(clamp(280px, 50dvh, 540px) * 952 / 922));
+    height: clamp(240px, 38dvh, 480px);
+    width: min(100%, calc(clamp(240px, 38dvh, 480px) * 952 / 922));
     min-height: 150px;
-    max-height: 54dvh;
+    max-height: 42dvh;
   }
 
   .shoot-btn {
-    width: clamp(88px, 20vw, 104px);
-    margin-top: 10px;
+    width: clamp(96px, 22vw, 128px);
+    margin-top: 0;
   }
 }
