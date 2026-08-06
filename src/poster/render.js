@@ -60,9 +60,6 @@ export async function buildPoster({
   photos,
   theme,
   layout,
-  eventName,
-  studentName,
-  footerText,
   width,
   height,
 }) {
@@ -76,7 +73,7 @@ export async function buildPoster({
 
   drawGlowOrb(ctx, 160, 140, 260, theme.frame.outer, 0.18);
   drawGlowOrb(ctx, 920, 220, 280, theme.photos.cornerAccent.color, 0.12);
-  drawGlowOrb(ctx, 760, 1180, 320, theme.footer.glow || theme.footer.borderColor, 0.18);
+  drawGlowOrb(ctx, 760, 1180, 320, theme.footer.glow || theme.footer.borderColor, 0.12);
   drawGlowOrb(ctx, 540, 760, 420, 'rgba(255,255,255,0.18)', 0.08);
 
   if (theme.bg.texture.type === 'grid') {
@@ -88,32 +85,6 @@ export async function buildPoster({
     const s = theme.bg.texture.step;
     for (let x = 0; x < width; x += s) for (let y = 0; y < height; y += s) ctx.fillRect(x, y, 2, 2);
   }
-
-  ctx.fillStyle = theme.header.topBar.color;
-  ctx.fillRect(0, 0, width, theme.header.topBar.height);
-
-  if (theme.header.bottomBar) {
-    const headerH = 230;
-    const grad = ctx.createLinearGradient(0, headerH - theme.header.bottomBar.height, 0, headerH);
-    grad.addColorStop(0, theme.header.bottomBar.colors[0]);
-    grad.addColorStop(1, theme.header.bottomBar.colors[1]);
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, headerH - theme.header.bottomBar.height, width, theme.header.bottomBar.height);
-  }
-
-  ctx.shadowColor = 'transparent';
-  drawHeaderText(ctx, theme.text?.school || 'PHOTOBOOTH', 160, 64, 520, 800, 30, 24, 'Space Grotesk', theme.title.color);
-  drawHeaderText(ctx, theme.text?.subtitle || 'Smile & Capture', 160, 104, 420, 700, 22, 14, 'Be Vietnam Pro', theme.subtitle.color);
-  drawHeaderText(ctx, eventName, width / 2, 198, 820, 900, 52, 34, 'Space Grotesk', theme.event?.color || theme.title.color, 'center');
-
-  ctx.save();
-  ctx.fillStyle = 'rgba(255,255,255,0.14)';
-  roundRect(ctx, 52, 34, 628, 148, 30);
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,0.18)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-  ctx.restore();
 
   layout.forEach(({ x, y, w, h, hero }) => {
     ctx.save();
@@ -162,24 +133,6 @@ export async function buildPoster({
     ctx.stroke();
     drawCornerAccents(ctx, x, y, w, h, theme.photos.cornerAccent.color, theme.photos.cornerAccent.size, theme.photos.cornerAccent.lw);
   });
-
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,0.08)';
-  ctx.shadowBlur = 10;
-  ctx.fillStyle = 'rgba(255,255,255,0.16)';
-  roundRect(ctx, 220, 1238, 640, 70, 18);
-  ctx.fill();
-  ctx.restore();
-
-  ctx.shadowColor = 'rgba(0,0,0,0.16)';
-  ctx.shadowBlur = 6;
-  const footerFamily = theme.footer.script?.family || '"Be Vietnam Pro", Arial, sans-serif';
-  const footerStyle = theme.footer.script?.italic ? 'italic ' : '';
-  ctx.font = `${footerStyle}700 46px ${footerFamily}`;
-  ctx.fillStyle = theme.footer.script?.color || theme.footer.hashtag.color;
-  ctx.fillText(footerText || theme.footer.text || theme.footer.hashtag.text, 540, 1276);
 
 }
 
