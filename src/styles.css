@@ -111,23 +111,23 @@ html, body {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(360px, 0.85fr);
-  gap: 0 22px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1.85fr) minmax(340px, 0.9fr);
+  gap: 0 16px;
+  align-items: stretch;
 }
 
 /* ── Camera column ───────────────────────────────────────── */
 .cam-col {
   display: grid;
-  place-items: start center;
-  padding: 12px 8px 12px 14px;
+  place-items: stretch center;
+  padding: 8px 6px 6px 14px;
   min-height: 0;
 }
 
 .cam-box {
   position: relative;
-  width: min(100%, calc((100dvh - 152px) * 4 / 3));
-  max-height: calc(100dvh - 152px);
+  width: min(100%, calc((100dvh - 122px) * 4 / 3));
+  max-height: calc(100dvh - 122px);
   aspect-ratio: 4 / 3;
   background: #04121a;
   border-radius: var(--radius-lg);
@@ -328,7 +328,7 @@ html, body {
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
-  padding: 10px 18px 10px 0;
+  padding: 6px 18px 8px 0;
   min-height: 0;
   height: calc(100dvh - 56px);
 }
@@ -535,7 +535,7 @@ html, body {
 .poster-shell {
   position: relative;
   width: min(100%, calc((100dvh - 148px) * 952 / 922));
-  flex: 1.5 1 auto;
+  flex: 1.15 1 auto;
   min-height: 0;
   max-height: 100%;
   aspect-ratio: 952 / 922;
@@ -720,9 +720,9 @@ input[type="range"] {
   border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.16);
   background:
-    radial-gradient(circle at 30% 26%, rgba(255,255,255,0.28), transparent 28%),
-    radial-gradient(circle at 50% 58%, rgba(255,255,255,0.06), transparent 44%),
-    linear-gradient(145deg, #FF6B35 0%, #D62828 48%, #7F1D1D 100%);
+    radial-gradient(circle at 30% 26%, rgba(255,255,255,0.22), transparent 28%),
+    radial-gradient(circle at 50% 58%, rgba(255,255,255,0.05), transparent 44%),
+    linear-gradient(145deg, #FFB38A 0%, #E98C72 48%, #C96B60 100%);
   color: white;
   font-family: 'Be Vietnam Pro', 'Space Grotesk', sans-serif;
   cursor: pointer;
@@ -734,11 +734,11 @@ input[type="range"] {
   margin: auto 0;
   transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
   box-shadow:
-    0 22px 60px rgba(214,40,40,0.42),
-    0 0 0 12px rgba(255,107,53,0.08),
-    0 0 44px rgba(255,107,53,0.32),
+    0 18px 48px rgba(201,107,96,0.28),
+    0 0 0 12px rgba(255,179,138,0.08),
+    0 0 34px rgba(233,140,114,0.22),
     inset 0 1px 0 rgba(255,255,255,0.22),
-    inset 0 -20px 28px rgba(0,0,0,0.18);
+    inset 0 -18px 24px rgba(0,0,0,0.14);
   position: relative;
   overflow: hidden;
 }
@@ -771,19 +771,19 @@ input[type="range"] {
 .shoot-btn:hover:not(:disabled) {
   transform: translateY(-2px) scale(1.05);
   box-shadow:
-    0 28px 68px rgba(214,40,40,0.5),
-    0 0 0 14px rgba(255,107,53,0.12),
-    0 0 52px rgba(255,107,53,0.46),
+    0 22px 56px rgba(201,107,96,0.34),
+    0 0 0 14px rgba(255,179,138,0.12),
+    0 0 42px rgba(233,140,114,0.32),
     inset 0 1px 0 rgba(255,255,255,0.28),
-    inset 0 -22px 28px rgba(0,0,0,0.16);
-  filter: saturate(1.08);
+    inset 0 -22px 28px rgba(0,0,0,0.14);
+  filter: saturate(0.98);
 }
 .shoot-btn:hover:not(:disabled) .s-text {
   transform: scale(1.08);
   text-shadow:
     0 1px 0 rgba(0, 0, 0, 0.24),
     0 0 18px rgba(255, 255, 255, 0.3),
-    0 0 24px rgba(255, 203, 47, 0.22);
+    0 0 24px rgba(255, 179, 138, 0.18);
 }
 .shoot-btn:active:not(:disabled) { transform: translateY(0) scale(0.98); }
 .shoot-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -1006,14 +1006,14 @@ input[type="range"] {
   .ctrl-col {
     gap: 10px;
     justify-content: flex-start;
-    padding-top: 6px;
+    padding-top: 4px;
   }
 
   .poster-shell {
     flex: 0 0 auto;
-    height: clamp(200px, 36dvh, 360px);
-    width: min(100%, calc(clamp(200px, 36dvh, 360px) * 952 / 922));
-    max-height: 360px;
+    height: clamp(230px, 39dvh, 390px);
+    width: min(100%, calc(clamp(230px, 39dvh, 390px) * 952 / 922));
+    max-height: 390px;
   }
 
   .shoot-btn {
@@ -1062,7 +1062,7 @@ input[type="range"] {
 
   .cam-box {
     aspect-ratio: 4 / 3;
-    max-height: 45vh;
+    max-height: 50vh;
   }
 
   #cam {
@@ -1074,7 +1074,7 @@ input[type="range"] {
   }
   .shoot-btn {
     width: min(32vw, 128px);
-    margin: 12px auto 6px;
+    margin: 10px auto 4px;
   }
 }
 
@@ -1103,7 +1103,7 @@ input[type="range"] {
 
   .cam-box {
     aspect-ratio: 16 / 10;
-    max-height: 280px;
+    max-height: 320px;
   }
 
   #cam {
@@ -1360,7 +1360,7 @@ input[type="range"] {
   .hdr { height: 42px; }
   /* Restore 2-column layout in landscape so camera doesn't fill viewport vertically */
   .main { grid-template-columns: 3fr 2fr; }
-  .cam-col { order: 1; padding: 8px; }
+  .cam-col { order: 1; padding: 6px 8px; }
   .ctrl-col { order: 2; gap: 10px; padding: 8px; align-items: center; }
   .count-picker { order: -3; gap: 6px; }
   .layout-picker { order: -2; gap: 6px; }
@@ -1369,8 +1369,8 @@ input[type="range"] {
   .shoot-btn { order: 1; width: 84px; }
   .poster-shell { order: 0; flex: 1; padding: 8px; }
   .cam-box {
-    width: min(100%, calc((100dvh - 58px) * 4 / 3));
-    max-height: calc(100dvh - 58px);
+    width: min(100%, calc((100dvh - 50px) * 4 / 3));
+    max-height: calc(100dvh - 50px);
     aspect-ratio: 4 / 3;
   }
   .s-text { font-size: 13px; }
@@ -1402,7 +1402,7 @@ input[type="range"] {
 
   .cam-col {
     flex-shrink: 0;
-    padding: 8px 12px 4px;
+    padding: 6px 12px 4px;
     width: min(100%, 560px);
   }
 
@@ -1410,7 +1410,7 @@ input[type="range"] {
   .cam-box {
     width: 100%;
     aspect-ratio: 16 / 10;
-    max-height: 34dvh;
+    max-height: 36dvh;
     height: auto;
   }
 
@@ -1435,11 +1435,11 @@ input[type="range"] {
 
   .poster-shell {
     flex: 0 0 auto;
-    height: clamp(300px, 42dvh, 500px);
+    height: clamp(300px, 44dvh, 520px);
     min-height: 190px;
-    width: min(100%, calc(clamp(300px, 42dvh, 500px) * 952 / 922));
+    width: min(100%, calc(clamp(300px, 44dvh, 520px) * 952 / 922));
     padding: 8px;
-    max-height: 44vh;
+    max-height: 46vh;
   }
 
   .ctrl-col.shooting .photo-grid {
@@ -1465,9 +1465,9 @@ input[type="range"] {
 @media (max-width: 940px) {
   .poster-shell {
     order: 0;
-    height: clamp(180px, 30dvh, 320px);
-    width: min(100%, calc(clamp(180px, 30dvh, 320px) * 952 / 922));
-    max-height: 32vh;
+    height: clamp(190px, 32dvh, 340px);
+    width: min(100%, calc(clamp(190px, 32dvh, 340px) * 952 / 922));
+    max-height: 34vh;
   }
   .shoot-btn { order: 1; }
 }
@@ -1488,87 +1488,28 @@ input[type="range"] {
   }
 }
 
-/* ── Compact booth controls ───────────────────────────────── */
-.hdr {
-  height: 56px;
-  padding: 0 12px;
-}
-
-.hdr-brand { gap: 10px; }
-
-.hdr-avatar {
-  width: 40px;
-  height: 40px;
-  padding: 4px;
-}
-
-.hdr-name { font-size: 18px; }
-
-.ctrl-col {
-  gap: 12px;
-  padding: 36px 18px 10px 0;
-  justify-content: flex-start;
-}
-
-.theme-picker,
-.layout-picker,
-.count-picker,
-.time-picker {
-  gap: 10px;
-}
-
-.ctrl-grid {
-  gap: 14px;
-}
-
-.theme-chip,
-.layout-chip,
-.count-chip,
-.time-chip {
-  min-height: 50px;
-  padding: 13px 14px 12px;
-  border-radius: 14px;
-}
-
-.count-chip,
-.layout-chip,
-.time-chip {
-  width: 100%;
-}
-
-.theme-chip-label {
-  font-size: 16px;
-}
-
-.poster-shell {
-  flex: 0 0 auto;
-  height: min(66dvh, calc(100dvh - 208px));
-  width: min(100%, calc(min(66dvh, calc(100dvh - 208px)) * 952 / 922));
-  padding: 8px;
-  border-radius: 14px;
-}
-
-.shoot-btn {
-  width: clamp(102px, 10vw, 126px);
-  padding: 14px;
-  margin: 22px auto 0;
-}
-
-.s-text { font-size: 15px; }
-
-.shoot-btn::before { inset: 8px; }
-.shoot-btn::after { inset: 17px; }
-
 @media (min-width: 941px) {
-  .cam-box {
-    width: min(100%, calc((100dvh - 152px) * 4 / 3));
-    max-height: calc(100dvh - 152px);
+  .ctrl-col {
+    gap: 10px;
+    justify-content: flex-start;
+    padding-top: 4px;
   }
 
   .poster-shell {
-    height: min(66dvh, calc(100dvh - 208px));
-    width: min(100%, calc(min(66dvh, calc(100dvh - 208px)) * 952 / 922));
+    flex: 0 0 auto;
+    height: clamp(250px, 44dvh, 430px);
+    width: min(100%, calc(clamp(250px, 44dvh, 430px) * 952 / 922));
+    max-height: 430px;
   }
+
+  .shoot-btn {
+    flex-shrink: 0;
+    width: clamp(88px, 8vw, 108px);
+    margin: 8px auto 0;
+  }
+
+  .s-text { font-size: 13px; }
+  .s-text span:last-child { font-size: 15px; }
 }
 
 @media (max-width: 768px) {
@@ -1587,14 +1528,14 @@ input[type="range"] {
 
   .ctrl-col {
     gap: 10px;
-    padding: 18px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+    padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px));
   }
 
   .poster-shell {
-    height: clamp(220px, 38dvh, 380px);
-    width: min(100%, calc(clamp(220px, 38dvh, 380px) * 952 / 922));
+    height: clamp(240px, 40dvh, 420px);
+    width: min(100%, calc(clamp(240px, 40dvh, 420px) * 952 / 922));
     min-height: 150px;
-    max-height: 38dvh;
+    max-height: 42dvh;
   }
 
   .shoot-btn {
