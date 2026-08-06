@@ -110,6 +110,7 @@ export async function buildPoster({
 
   layout.forEach(({ x, y, w, h, hero }, i) => {
     ctx.save();
+    roundRect(ctx, x + 8, y + 8, w - 16, h - 16, theme.photos.radius - 4);
     ctx.clip();
     const accent = i === 0 ? theme.frame.outer : theme.photos.cornerAccent.color;
     drawGlowOrb(ctx, x + w * 0.18, y + h * 0.18, hero ? 160 : 120, accent, 0.08);
@@ -134,9 +135,15 @@ export async function buildPoster({
     drawCornerAccents(ctx, x, y, w, h, theme.photos.cornerAccent.color, theme.photos.cornerAccent.size, theme.photos.cornerAccent.lw);
   });
 
+  ctx.save();
+  ctx.fillStyle = 'rgba(255,253,246,0.88)';
+  roundRect(ctx, 144, 90, 392, 54, 8);
+  ctx.fill();
+  ctx.restore();
+  drawHeaderText(ctx, theme.text.school, 160, 117, 360, 900, 34, 24, 'Be Vietnam Pro', theme.title.color);
+  drawHeaderText(ctx, theme.text.subtitle, width - 64, 117, 360, 700, 28, 20, 'Be Vietnam Pro', theme.subtitle.color, 'right');
+  drawHeaderText(ctx, theme.text.footer, width / 2, height - 34, width - 96, 800, 28, 18, 'Be Vietnam Pro', theme.footer.hashtag.color, 'center');
 }
-
-const imageCache = new Map();
 
 function drawPhoto(ctx, url, x, y, w, h, radius = 0) {
   return new Promise((res, rej) => {
@@ -163,16 +170,4 @@ function drawPhoto(ctx, url, x, y, w, h, radius = 0) {
     img.onerror = rej;
     img.src = url;
   });
-}
-
-function loadImage(url) {
-  if (imageCache.has(url)) return imageCache.get(url);
-  const promise = new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = url;
-  });
-  imageCache.set(url, promise);
-  return promise;
 }

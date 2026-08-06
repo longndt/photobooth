@@ -1497,9 +1497,9 @@ input[type="range"] {
 
   .poster-shell {
     flex: 0 0 auto;
-    height: clamp(250px, 44dvh, 430px);
-    width: min(100%, calc(clamp(250px, 44dvh, 430px) * 952 / 922));
-    max-height: 430px;
+    height: clamp(330px, 58dvh, 650px);
+    width: min(100%, calc(clamp(330px, 58dvh, 650px) * 952 / 922));
+    max-height: 650px;
   }
 
   .shoot-btn {
@@ -1532,10 +1532,10 @@ input[type="range"] {
   }
 
   .poster-shell {
-    height: clamp(250px, 42dvh, 440px);
-    width: min(100%, calc(clamp(250px, 42dvh, 440px) * 952 / 922));
+    height: clamp(280px, 50dvh, 540px);
+    width: min(100%, calc(clamp(280px, 50dvh, 540px) * 952 / 922));
     min-height: 150px;
-    max-height: 44dvh;
+    max-height: 54dvh;
   }
 
   .shoot-btn {
