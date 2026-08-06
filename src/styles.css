@@ -347,12 +347,12 @@ html, body {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 
 .ctrl-col-group {
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .layout-picker.is-locked {
@@ -379,7 +379,7 @@ html, body {
   background: rgba(4, 18, 26, 0.76);
   color: var(--text);
   border-radius: 14px;
-  padding: 15px 14px 14px;
+  padding: 17px 16px 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -395,7 +395,7 @@ html, body {
 .layout-chip,
 .time-chip {
   width: 100%;
-  min-height: 54px;
+  min-height: 62px;
   justify-content: center;
 }
 
@@ -509,7 +509,7 @@ html, body {
 
 .theme-chip-label {
   font-family: 'Be Vietnam Pro', sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
   line-height: 1.1;
   white-space: nowrap;
@@ -534,7 +534,7 @@ html, body {
 /* ── Live poster preview ─────────────────────────────────── */
 .poster-shell {
   position: relative;
-  width: min(100%, calc((100dvh - 132px) * 952 / 922));
+  width: 100%;
   flex: 0 0 auto;
   min-height: 0;
   max-height: 100%;
@@ -569,7 +569,7 @@ html, body {
 .poster-shell::after {
   content: '';
   position: absolute;
-  inset: 2.35%;
+  inset: 1.4%;
   border: 0;
   pointer-events: none;
 }
@@ -1004,26 +1004,41 @@ input[type="range"] {
 
 @media (min-width: 941px) {
   .ctrl-col {
-    gap: 12px;
+    gap: 14px;
     justify-content: flex-start;
-    padding-top: 8px;
+    padding-top: 6px;
+  }
+
+  .ctrl-grid {
+    gap: 18px;
+  }
+
+  .ctrl-col-group {
+    gap: 12px;
+  }
+
+  .theme-picker,
+  .layout-picker,
+  .count-picker,
+  .time-picker {
+    gap: 12px;
   }
 
   .poster-shell {
-    flex: 0 0 auto;
-    height: clamp(270px, 46dvh, 470px);
-    width: min(100%, calc(clamp(270px, 46dvh, 470px) * 952 / 922));
-    max-height: 470px;
+    flex: 1 1 auto;
+    height: 100%;
+    width: 100%;
+    max-height: none;
   }
 
   .shoot-btn {
     flex-shrink: 0;
-    width: clamp(88px, 8vw, 108px);
-    margin: 8px auto 0;
+    width: clamp(132px, 11vw, 170px);
+    margin: 2px auto 0;
   }
 
-  .s-text { font-size: 13px; }
-  .s-text span:last-child { font-size: 15px; }
+  .s-text { font-size: 16px; }
+  .s-text span:last-child { font-size: 18px; }
 }
 
 @media (max-width: 940px) {
@@ -1367,7 +1382,7 @@ input[type="range"] {
   .theme-picker { order: -1; gap: 6px; }
   .time-picker { order: 0; gap: 6px; }
   .shoot-btn { order: 1; width: 84px; }
-  .poster-shell { order: 0; flex: 1; padding: 8px; }
+  .poster-shell { order: 0; flex: 1; padding: 6px; }
   .cam-box {
     width: min(100%, calc((100dvh - 50px) * 4 / 3));
     max-height: calc(100dvh - 50px);
@@ -1438,7 +1453,7 @@ input[type="range"] {
     height: clamp(300px, 44dvh, 520px);
     min-height: 190px;
     width: min(100%, calc(clamp(300px, 44dvh, 520px) * 952 / 922));
-    padding: 8px;
+    padding: 6px;
     max-height: 46vh;
   }
 
@@ -1490,26 +1505,41 @@ input[type="range"] {
 
 @media (min-width: 941px) {
   .ctrl-col {
-    gap: 14px;
+    gap: 12px;
     justify-content: flex-start;
     padding-top: 4px;
   }
 
+  .ctrl-grid {
+    gap: 14px;
+  }
+
+  .ctrl-col-group {
+    gap: 10px;
+  }
+
+  .theme-picker,
+  .layout-picker,
+  .count-picker,
+  .time-picker {
+    gap: 10px;
+  }
+
   .poster-shell {
-    flex: 0 0 auto;
-    height: clamp(360px, 62dvh, 720px);
-    width: min(100%, calc(clamp(360px, 62dvh, 720px) * 952 / 922));
-    max-height: 720px;
+    flex: 1 1 auto;
+    height: 100%;
+    width: 100%;
+    max-height: none;
   }
 
   .shoot-btn {
     flex-shrink: 0;
-    width: clamp(132px, 11vw, 160px);
-    margin: 0 auto 2px;
+    width: clamp(112px, 9vw, 138px);
+    margin: 0 auto 1px;
   }
 
-  .s-text { font-size: 16px; }
-  .s-text span:last-child { font-size: 18px; }
+  .s-text { font-size: 15px; }
+  .s-text span:last-child { font-size: 17px; }
 }
 
 @media (max-width: 768px) {
@@ -1539,7 +1569,7 @@ input[type="range"] {
   }
 
   .shoot-btn {
-    width: clamp(96px, 22vw, 128px);
+    width: clamp(108px, 24vw, 140px);
     margin-top: 0;
   }
 }
