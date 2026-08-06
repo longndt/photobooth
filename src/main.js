@@ -26,8 +26,8 @@ const THEME_OPTIONS = POSTER_THEMES.map(theme => ({ label: theme.name }));
 const INTERVAL_OPTIONS = [3, 5];
 const PHOTO_COUNT_OPTIONS = [3, 4];
 const LAYOUT_OPTIONS = [
-  { label: 'khung A' },
-  { label: 'khung B' },
+  { label: 'mẫu A' },
+  { label: 'mẫu B' },
 ];
 const q  = s => document.querySelector(s);
 const qa = s => [...document.querySelectorAll(s)];
@@ -52,9 +52,9 @@ const renderPoster = () => buildPoster({
   photos: S.photos,
   theme: POSTER_THEMES[S.themeIndex] || POSTER_THEMES[0],
   layout: getLayout(),
-  eventName: S.eventName.trim() || 'Khoảnh khắc của tôi',
-  studentName: S.studentName,
-  footerText: S.studentName.trim() || formatToday(),
+  eventName: 'Khoảnh khắc của tôi',
+  studentName: '',
+  footerText: formatToday(),
   width: POSTER_WIDTH,
   height: POSTER_HEIGHT,
 });
@@ -184,10 +184,10 @@ function syncPosterPreview() {
   preview.style.setProperty('--preview-slot-border', theme.photos.borderColor);
   preview.style.setProperty('--preview-slot-accent', theme.photos.cornerAccent.color);
   preview.style.setProperty('--preview-badge-ink', theme.bg.color);
-  if (q('#preview-event')) q('#preview-event').textContent = S.eventName.trim() || 'Khoảnh khắc của tôi';
+  if (q('#preview-event')) q('#preview-event').textContent = 'Khoảnh khắc của tôi';
   if (q('#preview-date')) q('#preview-date').textContent = today;
-  if (q('#preview-place')) q('#preview-place').textContent = S.studentName;
-  if (q('#preview-hashtag')) q('#preview-hashtag').textContent = S.studentName.trim() || today;
+  if (q('#preview-place')) q('#preview-place').textContent = '';
+  if (q('#preview-hashtag')) q('#preview-hashtag').textContent = today;
 }
 
 function setThemeIndex(nextIndex) {
@@ -225,38 +225,6 @@ function setIntervalSeconds(nextInterval) {
   saveState('interval', S.interval);
   syncIntervalPicker();
   syncReadyCountdown();
-}
-
-function syncStudentNameField() {
-  const input = q('#student-name');
-  if (!input) return;
-  input.value = S.studentName;
-  input.disabled = S.mode !== 'ready';
-}
-
-function syncEventNameField() {
-  const input = q('#event-name');
-  if (!input) return;
-  input.value = S.eventName;
-  input.disabled = S.mode !== 'ready';
-}
-
-function setStudentName(nextName) {
-  if (S.mode !== 'ready') return;
-  const name = String(nextName || '').replace(/\s+/g, ' ').slice(0, 32);
-  S.studentName = name;
-  saveState('studentName', name);
-  syncStudentNameField();
-  syncPosterPreview();
-}
-
-function setEventName(nextName) {
-  if (S.mode !== 'ready') return;
-  const name = String(nextName || '').replace(/\s+/g, ' ').slice(0, 44);
-  S.eventName = name;
-  saveState('eventName', name);
-  syncEventNameField();
-  syncPosterPreview();
 }
 
 // ── Mount HTML ────────────────────────────────────────────────────────────────
@@ -362,32 +330,6 @@ q('#app').innerHTML = `
         </div>
       </div>
 
-      <div class="name-grid">
-        <div class="name-field">
-          <input
-            id="event-name"
-            class="name-input"
-            type="text"
-            inputmode="text"
-            maxlength="44"
-            placeholder="Họ tên/Thông điệp"
-            aria-label="Họ tên hoặc thông điệp để hiển thị trên poster"
-          >
-        </div>
-
-        <div class="name-field">
-          <input
-            id="student-name"
-            class="name-input"
-            type="text"
-            inputmode="text"
-            maxlength="32"
-            placeholder="Sự kiện/Địa điểm"
-            aria-label="Sự kiện hoặc địa điểm để hiển thị trên poster"
-          >
-        </div>
-      </div>
-
       <section class="poster-shell" id="poster-preview" aria-label="Poster preview">
         <div class="photo-grid" id="photo-grid" data-layout="${S.layoutIndex + 1}" data-photo-count="${S.photoCount}"></div>
       </section>
@@ -462,8 +404,6 @@ async function shoot() {
   syncLayoutPicker();
   syncPhotoCountPicker();
   syncIntervalPicker();
-  syncEventNameField();
-  syncStudentNameField();
   clearPhotoObjectUrls();
   S.photos = [];
   qa('.pv-slot').forEach(s => s.classList.remove('filled'));
@@ -525,8 +465,6 @@ async function shoot() {
     syncPhotoCountPicker();
     syncIntervalPicker();
     syncReadyCountdown();
-    syncEventNameField();
-    syncStudentNameField();
     return;
   }
   let uploadBlob;
@@ -544,13 +482,9 @@ async function shoot() {
     syncPhotoCountPicker();
     syncIntervalPicker();
     syncReadyCountdown();
-    syncEventNameField();
-    syncStudentNameField();
     return;
   }
   S.mode = 'done';
-  syncEventNameField();
-  syncStudentNameField();
   if (S.posterObjectUrl) URL.revokeObjectURL(S.posterObjectUrl);
   S.posterObjectUrl = URL.createObjectURL(uploadBlob);
   S.posterUrl = S.posterObjectUrl;
@@ -621,8 +555,6 @@ function retake() {
   syncPhotoCountPicker();
   syncIntervalPicker();
   syncReadyCountdown();
-  syncEventNameField();
-  syncStudentNameField();
 }
 
 function printPoster() {
@@ -652,10 +584,6 @@ q('#shoot-btn').addEventListener('click', shoot);
 q('#retry-cam').addEventListener('click', startCam);
 q('#retake-btn').addEventListener('click', retake);
 q('#print-btn').addEventListener('click', printPoster);
-q('#event-name').value = S.eventName;
-q('#event-name').addEventListener('input', e => setEventName(e.target.value));
-q('#student-name').value = S.studentName;
-q('#student-name').addEventListener('input', e => setStudentName(e.target.value));
 qa('.theme-chip[data-theme-index]').forEach(btn => {
   btn.addEventListener('click', () => setThemeIndex(btn.dataset.themeIndex));
 });
@@ -682,7 +610,5 @@ syncLayoutPicker();
 syncPhotoCountPicker();
 syncIntervalPicker();
 syncReadyCountdown();
-syncEventNameField();
-syncStudentNameField();
 startCam();
-if (import.meta.env.DEV) window.__t = { S, buildPoster: renderPoster, showResult, setThemeIndex, setLayoutIndex, setPhotoCount, setIntervalSeconds, setEventName, setStudentName };
+if (import.meta.env.DEV) window.__t = { S, buildPoster: renderPoster, showResult, setThemeIndex, setLayoutIndex, setPhotoCount, setIntervalSeconds };

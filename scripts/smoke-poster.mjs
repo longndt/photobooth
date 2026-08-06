@@ -25,7 +25,7 @@ async function main() {
     throw new Error(`Expected 2 theme chips, found ${themeChipCount}`);
   }
   const themeLabels = await page.$$eval('.theme-chip .theme-chip-label', nodes => nodes.map(node => node.textContent.trim()));
-  if (themeLabels.join('|') !== 'mẫu A|mẫu B') {
+  if (themeLabels.join('|') !== 'màu 1|màu 2') {
     throw new Error(`Unexpected theme labels: ${themeLabels.join('|')}`);
   }
   const themeCount = await page.$$eval('.theme-chip', nodes => nodes.length);
@@ -36,8 +36,8 @@ async function main() {
   await page.click('.theme-chip[data-theme-index="1"]');
   await page.waitForFunction(() => window.__t?.S?.themeIndex === 1);
   const activeTheme = await page.$eval('.theme-chip.is-active .theme-chip-label', el => el.textContent.trim());
-  if (activeTheme !== 'mẫu B') {
-    throw new Error(`Expected mẫu B active, got ${activeTheme}`);
+  if (activeTheme !== 'màu 2') {
+    throw new Error(`Expected màu 2 active, got ${activeTheme}`);
   }
   const theme2 = POSTER_THEMES[1];
   const previewAccent = await page.$eval('#poster-preview', el => getComputedStyle(el).getPropertyValue('--preview-shell-accent').trim());
@@ -115,8 +115,8 @@ async function main() {
   await page.click('.layout-chip[data-layout-index="1"]');
   await page.waitForFunction(() => window.__t?.S?.layoutIndex === 1);
   const activeLayout = await page.$eval('.layout-chip.is-active .theme-chip-label', el => el.textContent.trim());
-  if (activeLayout !== 'khung B') {
-    throw new Error(`Expected khung B active, got ${activeLayout}`);
+  if (activeLayout !== 'mẫu B') {
+    throw new Error(`Expected mẫu B active, got ${activeLayout}`);
   }
   const previewLayout = await page.$eval('#photo-grid', el => el.dataset.layout);
   if (previewLayout !== '2') {
@@ -148,6 +148,13 @@ async function main() {
   );
   if (new Set(activeChipStyles).size !== 4) {
     throw new Error(`Active chip rows should use distinct backgrounds: ${activeChipStyles.join(' | ')}`);
+  }
+  const buttonBackgrounds = await page.evaluate(() => ({
+    shoot: getComputedStyle(document.querySelector('#shoot-btn')).backgroundImage,
+    countdown: getComputedStyle(document.querySelector('.time-chip.is-active')).backgroundImage,
+  }));
+  if (buttonBackgrounds.shoot === buttonBackgrounds.countdown) {
+    throw new Error('Shoot button should not share the countdown button background');
   }
   const layoutRects = await page.evaluate(() => {
     const grid = document.querySelector('#photo-grid').getBoundingClientRect();
@@ -203,19 +210,10 @@ async function main() {
     throw new Error(`Shoot button did not move down enough: ${shootOffset.toFixed(1)}px`);
   }
 
-  const placeholders = await page.$$eval('.name-input', nodes => nodes.map(node => node.placeholder));
-  if (placeholders.join('|') !== 'Họ tên/Thông điệp|Sự kiện/Địa điểm') {
-    throw new Error(`Unexpected input placeholders: ${placeholders.join('|')}`);
+  const inputCount = await page.$$eval('.name-input', nodes => nodes.length);
+  if (inputCount !== 0) {
+    throw new Error(`Expected name inputs to be removed, found ${inputCount}`);
   }
-
-  await page.evaluate(() => window.__t?.setEventName?.('Open Day 2026'));
-  await page.waitForFunction(() => window.__t?.S?.eventName === 'Open Day 2026');
-  await page.evaluate(() => window.__t?.setStudentName?.('Nguyen '));
-  await page.waitForFunction(() => window.__t?.S?.studentName === 'Nguyen ');
-  await page.evaluate(() => window.__t?.setStudentName?.('Nguyen Van A'));
-  await page.waitForFunction(() => window.__t?.S?.studentName === 'Nguyen Van A');
-  await page.evaluate(() => window.__t?.setStudentName?.(''));
-  await page.waitForFunction(() => window.__t?.S?.studentName === '');
 
   await page.evaluate(() => {
     const makeShot = index => {
