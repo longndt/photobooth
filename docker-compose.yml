@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  photobooth:
+    build: .
+    container_name: photobooth
+    restart: always
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    ports:
+      - "127.0.0.1:8389:3000"
+    env_file:
+      - .env.local
