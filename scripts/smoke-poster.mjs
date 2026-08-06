@@ -130,15 +130,15 @@ async function main() {
   if (timerLabels.join('|') !== '3 giây|5 giây') {
     throw new Error(`Unexpected timer labels: ${timerLabels.join('|')}`);
   }
-  const countdownMascot = await page.$eval('#cnt-mascot', img => ({
+  const countdownAvatar = await page.$eval('#cnt-avatar', img => ({
     src: img.getAttribute('src') || '',
     hidden: img.classList.contains('is-visible'),
   }));
-  if (!countdownMascot.src.includes('mascot')) {
-    throw new Error(`Countdown mascot is not wired to the mascot asset: ${countdownMascot.src}`);
+  if (!countdownAvatar.src.includes('avatar')) {
+    throw new Error(`Countdown avatar is not wired to the avatar asset: ${countdownAvatar.src}`);
   }
-  if (countdownMascot.hidden) {
-    throw new Error('Countdown mascot should be hidden before shooting starts');
+  if (countdownAvatar.hidden) {
+    throw new Error('Countdown avatar should be hidden before shooting starts');
   }
   await page.click('.time-chip[data-interval="5"]');
   await page.waitForFunction(() => window.__t?.S?.interval === 5);

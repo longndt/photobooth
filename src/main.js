@@ -1,4 +1,4 @@
-import mascotUrl from './assets/mascot.png';
+import avatarUrl from './assets/avatar.png';
 import './styles.css';
 import { POSTER_THEMES } from './concepts.js';
 import { POSTER_HEIGHT, POSTER_LAYOUTS, POSTER_WIDTH } from './poster/config.js';
@@ -55,7 +55,6 @@ const renderPoster = () => buildPoster({
   eventName: S.eventName.trim() || 'Khoảnh khắc của tôi',
   studentName: S.studentName,
   footerText: S.studentName.trim() || formatToday(),
-  mascotUrl,
   width: POSTER_WIDTH,
   height: POSTER_HEIGHT,
 });
@@ -152,7 +151,7 @@ function syncIntervalPicker() {
 function syncReadyCountdown() {
   if (S.mode !== 'ready') return;
   q('#cov')?.classList.remove('hidden');
-  q('#cnt-mascot')?.classList.remove('is-visible');
+  q('#cnt-avatar')?.classList.remove('is-visible');
   const n = q('#cnt-n');
   if (n) n.textContent = String(S.interval);
 }
@@ -265,7 +264,7 @@ q('#app').innerHTML = `
 <div class="app">
   <header class="hdr">
     <div class="hdr-brand">
-      <img class="hdr-lion" src="${mascotUrl}" alt="" aria-hidden="true">
+      <img class="hdr-avatar" src="${avatarUrl}" alt="" aria-hidden="true">
       <div class="hdr-text">
         <span class="hdr-name">Photobooth</span>
       </div>
@@ -282,7 +281,7 @@ q('#app').innerHTML = `
         <div class="cnt-ov" id="cov">
           <div class="cnt-num-wrap">
             <div class="cnt-n" id="cnt-n">${S.interval}</div>
-            <img class="cnt-mascot" id="cnt-mascot" src="${mascotUrl}" alt="" aria-hidden="true">
+            <img class="cnt-avatar" id="cnt-avatar" src="${avatarUrl}" alt="" aria-hidden="true">
           </div>
         </div>
 
@@ -491,9 +490,9 @@ async function shoot() {
       await sleep(Math.min(remaining * 1000, 32));
     }
     q('#cnt-n').textContent = '';
-    q('#cnt-mascot').classList.add('is-visible');
+    q('#cnt-avatar').classList.add('is-visible');
     await sleep(180);
-    q('#cnt-mascot').classList.remove('is-visible');
+    q('#cnt-avatar').classList.remove('is-visible');
 
     S.photos.push(await capFrame(cam));
     if (navigator.vibrate) navigator.vibrate([50]);
@@ -599,28 +598,6 @@ function showResult() {
   q('#rov').classList.remove('hidden');
   q('#rov').classList.remove('is-ready');
   requestAnimationFrame(() => q('#rov').classList.add('is-ready'));
-}
-
-async function uploadPoster(blob) {
-  const TIMEOUT_MS = 8000;
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
-  try {
-    const res = await fetch('/api/upload', {
-      method: 'POST',
-      headers: { 'Content-Type': 'image/jpeg' },
-      body: blob,
-      signal: controller.signal,
-    });
-    if (!res.ok) return null;
-    const { url } = await res.json();
-    return url;
-  } catch (err) {
-    console.error('Upload error:', err.message);
-    return null;
-  } finally {
-    clearTimeout(timeoutId);
-  }
 }
 
 function retake() {

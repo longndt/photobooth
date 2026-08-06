@@ -63,12 +63,10 @@ export async function buildPoster({
   eventName,
   studentName,
   footerText,
-  mascotUrl,
   width,
   height,
 }) {
   await document.fonts.ready;
-  const mascot = await loadImage(mascotUrl);
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext('2d');
@@ -115,18 +113,6 @@ export async function buildPoster({
   ctx.strokeStyle = 'rgba(255,255,255,0.18)';
   ctx.lineWidth = 1;
   ctx.stroke();
-  ctx.restore();
-
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(96, 88, 48, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(255,255,255,0.07)';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(255,203,47,0.55)';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.clip();
-  ctx.drawImage(mascot, 56, 42, 80, 80);
   ctx.restore();
 
   layout.forEach(({ x, y, w, h, hero }) => {
