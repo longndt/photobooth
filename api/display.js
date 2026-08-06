@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Greenwich Booth Poster</title>
+  <title>Photobooth Poster</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -117,7 +117,7 @@ export default async function handler(req, res) {
 </head>
 <body>
   <div class="container">
-    <h1>📸 Greenwich Booth Poster</h1>
+    <h1>📸 Photobooth Poster</h1>
     <img src="${imgSrc}" alt="Poster" />
     <div class="btn-group">
       <a href="/api/download?url=${encodeURIComponent(url)}" download class="btn btn-download">⬇️ Tải ảnh</a>

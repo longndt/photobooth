@@ -53,7 +53,7 @@ const renderPoster = () => buildPoster({
   photos: S.photos,
   theme: POSTER_THEMES[S.themeIndex] || POSTER_THEMES[0],
   layout: getLayout(),
-  eventName: S.eventName.trim() || 'Khoảnh khắc Greenwich',
+  eventName: S.eventName.trim() || 'Khoảnh khắc của tôi',
   studentName: S.studentName,
   footerText: S.studentName.trim() || formatToday(),
   mascotUrl,
@@ -186,7 +186,7 @@ function syncPosterPreview() {
   preview.style.setProperty('--preview-slot-border', theme.photos.borderColor);
   preview.style.setProperty('--preview-slot-accent', theme.photos.cornerAccent.color);
   preview.style.setProperty('--preview-badge-ink', theme.bg.color);
-  if (q('#preview-event')) q('#preview-event').textContent = S.eventName.trim() || 'Khoảnh khắc Greenwich';
+  if (q('#preview-event')) q('#preview-event').textContent = S.eventName.trim() || 'Khoảnh khắc của tôi';
   if (q('#preview-date')) q('#preview-date').textContent = today;
   if (q('#preview-place')) q('#preview-place').textContent = S.studentName;
   if (q('#preview-hashtag')) q('#preview-hashtag').textContent = S.studentName.trim() || today;
@@ -268,7 +268,7 @@ q('#app').innerHTML = `
     <div class="hdr-brand">
       <img class="hdr-lion" src="${mascotUrl}" alt="" aria-hidden="true">
       <div class="hdr-text">
-        <span class="hdr-name">Greenwich Photobooth</span>
+        <span class="hdr-name">Photobooth</span>
       </div>
     </div>
   </header>
@@ -410,7 +410,7 @@ q('#app').innerHTML = `
         <img id="qr-img" alt="Mã QR để quét và tải ảnh"/>
       </div>
       <div class="dl-info">
-        <a id="dl-link" class="btn-primary" download="greenwichbooth.jpg" aria-label="Tải ảnh về máy">
+        <a id="dl-link" class="btn-primary" download="photobooth.jpg" aria-label="Tải ảnh về máy">
           <span class="btn-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
               <path d="M12 3.5v9.2l3.2-3.2 1.8 1.8-6 6-6-6 1.8-1.8 3.2 3.2V3.5h2z"></path>
@@ -677,7 +677,7 @@ function printPoster() {
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <title>In Greenwich Booth</title>
+  <title>In ảnh Photobooth</title>
   <style>
     @page { margin: 0; }
     body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #fff; }
@@ -685,7 +685,7 @@ function printPoster() {
   </style>
 </head>
 <body>
-  <img src="${S.posterUrl}" alt="Greenwich Booth poster" onload="window.focus(); window.print();">
+  <img src="${S.posterUrl}" alt="Photobooth poster" onload="window.focus(); window.print();">
 </body>
 </html>`);
   printWindow.document.close();

@@ -110,7 +110,7 @@ if (typeof process !== 'undefined' && process.versions?.node) {
   });
 
   server.listen(port, '0.0.0.0', () => {
-    console.log(`greenwichbooth listening on http://0.0.0.0:${port}`);
+    console.log(`photobooth listening on http://0.0.0.0:${port}`);
   });
 }
 
